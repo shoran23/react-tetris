@@ -19,7 +19,7 @@ class Square extends React.Component {
                     height: this.state.height,
                     backgroundColor: this.state.color,
                     border: `${this.state.borderWidth} solid ${this.state.borderColor}`
-                }}>
+                }}>{this.props.id}
             </div>
         )
     }
