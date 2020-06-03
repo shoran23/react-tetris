@@ -8,23 +8,7 @@ const width = 0;
 const heigth = 1;
 
 class Gameboard extends React.Component {
-    testPositionChange = () => {
-        console.log("Test Position Change")
-        // if(this.state.position[x] > 0){
-        //     let array = this.state.position
-        //     array[x] -= 1
-        //     this.setState({position: array})
-        //     setTimeout(this.testPositionChange,1000)
-        // }
-
-        //this.setState({gameboard: this.props.gameboard})
-    }
-
     render() {
-
-        console.log('Position: ',`${this.props.position[x]},${this.props.position[y]}`)
-
-
         return (
             <div className='gameboard'
                 style={{
