@@ -7,11 +7,13 @@ import Navigation from './components/Navigation'
 
 const x = 0
 const y = 1
+let curPosition = []
+let lastPosition = []
+
+const gameboardColor = 'gray'
 
 class App extends React.Component {
   state = {
-    curPosition: [],
-    lastPosition: [],
     gameboard: [
       {
           name: 'Gameboard 6x10',
@@ -42,18 +44,29 @@ class App extends React.Component {
   }
 
   updatePosition = arr => {
-    // get board
-    let board = document.getElementsByClassName('square')
     // set positions
-    this.setState({lastPosition: this.state.curPosition})
-    this.setState({curPosition: arr})
-    
-    
-
+    lastPosition = curPosition
+    curPosition = arr
+    this.render()
+    // find and set background color of last position
+    if(lastPosition.length > 0){
+      let docLastPos = document.getElementById(`${lastPosition[x]},${lastPosition[y]}`)
+      docLastPos.style.backgroundColor = gameboardColor
+    }
+    // set current position
+    if(curPosition.length > 0){
+      let docCurPos = document.getElementById(`${curPosition[x]},${curPosition[y]}`)
+      docCurPos.style.backgroundColor = 'lightblue'
+    }
   }
 
-
-
+  testRun = () => {
+    this.updatePosition([0,9])
+    if(curPosition[y] >= 0){
+      curPosition[y] -= 1
+      setTimeout(this.testRun(),1000)
+    }
+  }
   render() {
     return (
       <div className="App">
@@ -64,9 +77,13 @@ class App extends React.Component {
         <Navigation
           movePosition={this.movePosition}
           clearBoard={this.clearBoard}
+          updatePosition={this.updatePosition}
         />
       </div>
     );
+  }
+  componentDidMount() {
+    this.testRun()
   }
 }
 export default App;
